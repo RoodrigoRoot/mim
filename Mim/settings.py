@@ -120,3 +120,32 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOG_DIR = "/var/log/mim"
+
+LOGGING = {
+
+ 'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': "[%(asctime)s] %(levelname)s [%(module)s.%(funcName)s:%(lineno)s] %(message)s",
+            'datefmt': "%Y-%m-%d %H:%M:%S"
+        },
+    },
+
+    'handlers':{
+        'logfile':{
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': LOG_DIR + "/backend.log",
+            'formatter': 'standard',
+        }
+    },
+    'loggers':{
+        'back':{
+            'level': 'DEBUG',
+            'handlers': ['logfile']
+        }
+    }
+}

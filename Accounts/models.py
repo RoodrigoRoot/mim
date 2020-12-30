@@ -17,7 +17,10 @@ class Banks(models.Model):
 
 
 class Countries(models.Model):
-    name = models.CharField(verbose_name="Country", max_length=50)
+    COUNTRIES = (
+        ("mx", "México"),
+    )
+    name = models.CharField(verbose_name="Country", max_length=50, choices=COUNTRIES)
 
     def __str__(self):
         return self.name
@@ -41,7 +44,7 @@ class StatusUser(models.Model):
 
 class Accounts(models.Model):
     user = models.OneToOneField(User, verbose_name="User", on_delete=models.CASCADE)
-    bank = models.ForeignKey(Banks, verbose_name="Bank", on_delete=models.CASCADE)
+    bank = models.ForeignKey(Banks, verbose_name="Bank", on_delete=models.CASCADE, blank=True, null=True)
     birthday = models.DateField(verbose_name="Datebirth", auto_now=False, auto_now_add=False)
     create_at = models.DateTimeField(verbose_name="Created", auto_now=True, auto_now_add=False)
     phone = models.CharField(verbose_name="Phone", max_length=15)
@@ -49,7 +52,7 @@ class Accounts(models.Model):
     clabe = models.CharField(verbose_name="Clabe", max_length=50)
     slug = models.SlugField(verbose_name="Slug")
     status = models.ForeignKey(StatusUser, verbose_name="Status User", on_delete=models.CASCADE)
-    #address = models.ForeignKe|y(, verbose_name=_(""), on_delete=models.CASCADE)
+    #address = models.ForeignKey(, verbose_name=_(""), on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
