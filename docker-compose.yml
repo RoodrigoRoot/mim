@@ -1,10 +1,20 @@
 version: "3"
    
 services:
-  miim:
-    build: .
+
+  db:
+    image: postgres:12
+    env_file: .env
+
+
+  mim:
+    build: 
+     context: .
+    env_file: .env
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/mim
     ports:
       - "8000:8000"
+    depends_on: 
+    - db
