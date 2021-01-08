@@ -35,10 +35,7 @@ class CountriesSerializer(serializers.ModelSerializer):
         fields = ("id", "name",)
 
 class AccountsSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    codes = CodeSerializer(required=False)
-    status = StatusSerializer(required=False)
-    country = CountriesSerializer()
+
 
     class Meta:
         model = Accounts
@@ -47,6 +44,7 @@ class AccountsSerializer(serializers.ModelSerializer):
             'slug': {'read_only': True},
             'codes': {'read_only': True}            
         }
+        
 
     def create(self, validated_data):
         try:
